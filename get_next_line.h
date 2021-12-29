@@ -6,14 +6,14 @@
 /*   By: bnidia <bnidia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/01 12:30:04 by bnidia            #+#    #+#             */
-/*   Updated: 2021/12/22 19:36:17 by bnidia           ###   ########.fr       */
+/*   Updated: 2021/12/23 19:28:34 by bnidia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 16384
+#  define BUFFER_SIZE 3//16384
 # endif
 # include <unistd.h>
 # include <stdlib.h>
@@ -21,16 +21,22 @@
 # include <fcntl.h>
 # include <errno.h>
 
-typedef struct s
+typedef struct file
 {
-	size_t		fd;
-	char		buffer[BUFFER_SIZE];
+	int			fd;
+	char		read_buffer[BUFFER_SIZE];
 	size_t		read_size;
-	struct s	*next;	
+	size_t		buffer_position;
+	char 		*str;
+	size_t		str_capacity;
+	size_t		str_size;
+	struct file	*next;
 }	t_file;
 
-
 char	*get_next_line(int fd);
-
+void	init_file(t_file **file, int fd);
+void    check_if_the_file_was_opened(int fd, t_file **file);
+void    make_string(t_file *file);
+void 	ft_realloc(t_file *file);
 
 #endif
