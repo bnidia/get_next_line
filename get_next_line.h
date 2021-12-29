@@ -6,7 +6,7 @@
 /*   By: bnidia <bnidia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/01 12:30:04 by bnidia            #+#    #+#             */
-/*   Updated: 2021/12/23 19:28:34 by bnidia           ###   ########.fr       */
+/*   Updated: 2021/12/29 21:27:41 by bnidia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,6 @@
 # endif
 # include <unistd.h>
 # include <stdlib.h>
-# include <stdio.h>
-# include <fcntl.h>
-# include <errno.h>
 
 typedef struct file
 {
@@ -27,16 +24,16 @@ typedef struct file
 	char		read_buffer[BUFFER_SIZE];
 	size_t		read_size;
 	size_t		buffer_position;
-	char 		*str;
+	char		*str;
 	size_t		str_capacity;
 	size_t		str_size;
 	struct file	*next;
 }	t_file;
 
-char	*get_next_line(int fd);
-void	init_file(t_file **file, int fd);
-void    check_if_the_file_was_opened(int fd, t_file **file);
-void    make_string(t_file *file);
-void 	ft_realloc(t_file *file);
+char		*get_next_line(int fd);
+static void	init_file(t_file **file, int fd);
+static void	check_if_the_file_was_opened(int fd, t_file **file);
+static void	make_string(t_file *file);
+static void	ft_realloc(t_file *file);
 
 #endif
