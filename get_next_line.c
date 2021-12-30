@@ -6,7 +6,7 @@
 /*   By: bnidia <bnidia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/01 12:45:12 by bnidia            #+#    #+#             */
-/*   Updated: 2021/12/29 21:05:24 by bnidia           ###   ########.fr       */
+/*   Updated: 2021/12/30 09:14:48 by bnidia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	*get_next_line(int fd)
 {
 	static t_file	*file = NULL;
 
-	if (fd < 0)
+	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	if (file == NULL)
 		init_file(&file, fd);
