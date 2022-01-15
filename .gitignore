@@ -1,11 +1,11 @@
+/cmake-build-debug/
 /.vscode/
 /.idea/
-*.pdf
-a.out
 main.c
-*.o
-*.d
 *.a
+*.d
+*.o
+*.sh
 *.txt
-/cmake-build-debug/
-/gnlTester/
+*.pdf
+*.out
