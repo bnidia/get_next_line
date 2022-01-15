@@ -22,13 +22,19 @@
 char	*get_next_line(int fd)
 {
 	static t_file	*file = NULL;
+	int 			err;
 
+	err = 0;
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	if (file == NULL)
-		init_file(&file, fd);
+		init_file(fd, &file);
+	if (file == NULL)
+		return (NULL);
 	if (file->fd != fd)
-		check_if_the_file_was_opened(fd, &file);
+		err = check_if_the_file_was_opened(fd, &file);
+	if (err == -1)
+		return (NULL);
 	make_string(file);
-	return (file -> str);
+	return (file->str);
 }

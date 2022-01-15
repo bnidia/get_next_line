@@ -1,0 +1,11 @@
+/.vscode/
+/.idea/
+*.pdf
+a.out
+main.c
+*.o
+*.d
+*.a
+*.txt
+/cmake-build-debug/
+/gnlTester/

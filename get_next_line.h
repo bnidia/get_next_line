@@ -22,7 +22,7 @@ typedef struct file
 {
 	int			fd;
 	char		read_buffer[BUFFER_SIZE];
-	size_t		read_size;
+	ssize_t		read_size;
 	size_t		buffer_position;
 	char		*str;
 	size_t		str_capacity;
@@ -30,10 +30,11 @@ typedef struct file
 	struct file	*next;
 }	t_file;
 
-char		*get_next_line(int fd);
-static void	init_file(t_file **file, int fd);
-static void	check_if_the_file_was_opened(int fd, t_file **file);
-static void	make_string(t_file *file);
-static void	ft_realloc(t_file *file);
+char	*get_next_line(int fd);
+void	init_file(int fd, t_file **file);
+int		check_if_the_file_was_opened(int fd, t_file **file);
+char	*make_string(t_file *file);
+int		ft_realloc(t_file *file);
+void	delete_file(t_file *file);
 
 #endif
