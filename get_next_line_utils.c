@@ -96,8 +96,10 @@ char	*make_string(t_file *file)
 			return (str);
 		}
 		if (file->str_size + 8 >= file->str_capacity)
-			if (ft_realloc(file, &str) == -1)
+			if (ft_realloc(file, &str) == -1) {
+				delete_file(file);
 				return (str);
+			}
 		file->read_size--;
 	}
 }
