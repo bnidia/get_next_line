@@ -71,7 +71,7 @@ char	*make_string(t_file *file)
 		return (NULL);
 	}
 	file->str_size = 0;
-	while (42)
+	while (43)
 	{
 		if (file->read_size == 0)
 		{
