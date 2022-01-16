@@ -67,7 +67,7 @@ char	*make_string(t_file *file)
 	str = (char *)malloc(STR_CAPACITY);
 	if (str == NULL)
 	{
-		delete_file(file);
+		delete_file(&file);
 		return (NULL);
 	}
 	file->str_size = 0;
@@ -81,10 +81,10 @@ char	*make_string(t_file *file)
 			if (file->read_size <= 0) {
 				if (file->str_size == 0) {
 					free(str);
-					delete_file(file);
+					delete_file(&file);
 					return (NULL);
 				}
-				delete_file(file);
+				delete_file(&file);
 				return (str);
 			}
 		}
@@ -97,7 +97,7 @@ char	*make_string(t_file *file)
 		}
 		if (file->str_size + 8 >= file->str_capacity)
 			if (ft_realloc(file, &str) == -1) {
-				delete_file(file);
+				delete_file(&file);
 				return (str);
 			}
 		file->read_size--;
@@ -127,20 +127,20 @@ int	ft_realloc(t_file *file, char **str)
 	return (0);
 }
 
-void	delete_file(t_file *file)
+void	delete_file(t_file **file)
 {
 	t_file	*del_file;
 	t_file	*prev_file;
 
-	del_file = file;
-	prev_file = file;
-	file = file->next;
-	while(del_file != file->next)
+	del_file = *file;
+	prev_file = *file;
+	*file = (*file)->next;
+	while(del_file != (*file)->next)
 	{
-		prev_file = file;
-		file = file->next;
+		prev_file = *file;
+		*file = (*file)->next;
 	}
-	file = prev_file;
-	file->next = del_file->next;
+	(*file) = prev_file;
+	(*file)->next = del_file->next;
 	free(del_file);
 }
