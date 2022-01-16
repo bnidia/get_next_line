@@ -83,7 +83,6 @@ char	*make_string(t_file *file)
 					free(str);
 					return (NULL);
 				}
-				str[file->str_size] = '\0';
 				delete_file(file);
 				return (str);
 			}
