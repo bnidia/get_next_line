@@ -79,8 +79,8 @@ char	*make_string(t_file *file)
 			file->read_size = read(file->fd, file->read_buffer,
 								   BUFFER_SIZE);
 			if (file->read_size <= 0) {
-				delete_file(file);
 				str[file->str_size] = '\0';
+				delete_file(file);
 				return (str);
 			}
 		}
