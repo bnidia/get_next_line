@@ -71,7 +71,7 @@ char	*make_string(t_file *file)
 		return (NULL);
 	}
 	file->str_size = 0;
-	while (43)
+	while (42)
 	{
 		if (file->read_size == 0)
 		{
@@ -83,6 +83,7 @@ char	*make_string(t_file *file)
 					free(str);
 					return (NULL);
 				}
+				str[file->str_size] = '\0';
 				delete_file(file);
 				return (str);
 			}
@@ -94,7 +95,7 @@ char	*make_string(t_file *file)
 			file->read_size--;
 			return (str);
 		}
-		if (file->str_size + 2 == file->str_capacity)
+		if (file->str_size + 8 >= file->str_capacity)
 			if (ft_realloc(file, &str) == -1)
 				return (str);
 		file->read_size--;
