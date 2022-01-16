@@ -81,6 +81,7 @@ char	*make_string(t_file *file)
 			if (file->read_size <= 0) {
 				if (file->str_size == 0) {
 					free(str);
+					delete_file(file);
 					return (NULL);
 				}
 				delete_file(file);
