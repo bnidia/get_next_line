@@ -80,6 +80,7 @@ char	*make_string(t_file *file)
 								   BUFFER_SIZE);
 			if (file->read_size <= 0) {
 				delete_file(file);
+				str[file->str_size] = '\0';
 				return (str);
 			}
 		}
