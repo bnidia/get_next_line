@@ -35,6 +35,6 @@ t_file	*init_file(int fd, t_file **file);
 int		check_if_the_file_was_opened(int fd, t_file **file);
 char	*make_string(t_file *file);
 int		ft_realloc(t_file *file, char **str);
-void	delete_file(t_file **file);
+void	delete_file(t_file *file);
 
 #endif
