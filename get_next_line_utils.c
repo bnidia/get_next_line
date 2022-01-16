@@ -21,22 +21,15 @@
  * that line length fall between 45 and 75 characters per line (cpl),
  * though the ideal is 66 cpl (including letters and spaces)
  */
-void	init_file(int fd, t_file **file)
+t_file	*init_file(int fd, t_file **file)
 {
 	(*file) = (t_file *)malloc(sizeof(t_file));
-	if (!(*file))
-		return ;
-	(*file)->str = (char *)malloc(4096);
-	if (!((*file)->str))
-	{
-		free(*file);
-		*file = NULL;
-		return ;
-	}
+	if ((*file) == NULL)
+		return (NULL);
 	(*file)->fd = fd;
 	(*file)->read_size = 0;
 	(*file)->next = *file;
-	(*file)->str_capacity = 4096;
+	return (*file);
 }
 
 /*
@@ -70,52 +63,60 @@ char	*make_string(t_file *file)
 {
 	char	*str;
 
+	file->str_capacity = STR_CAPACITY;
+	str = (char *)malloc(STR_CAPACITY);
+	if (str == NULL)
+	{
+		delete_file(file);
+		return (NULL);
+	}
 	file->str_size = 0;
-	while (file->read_size >= 0)
+	while (42)
 	{
 		if (file->read_size == 0)
 		{
 			file->buffer_position = 0;
-			file->read_size = read(file->fd, file->read_buffer, BUFFER_SIZE);
+			file->read_size = read(file->fd, file->read_buffer,
+								   BUFFER_SIZE);
 			if (file->read_size <= 0) {
-				str = file->str;
 				delete_file(file);
 				return (str);
 			}
 		}
-		file->str[file->str_size++] = file->read_buffer[file->buffer_position++];
+		str[file->str_size++] = file->read_buffer[file->buffer_position++];
 		if (file->read_buffer[file->buffer_position-1] == '\n')
 		{
-			file->str[file->str_size] = '\0';
-			return (file->str);
+			str[file->str_size] = '\0';
+			file->read_size--;
+			return (str);
 		}
 		if (file->str_size + 2 == file->str_capacity)
-			if (ft_realloc(file) == -1)
-				return (file->str);
+			if (ft_realloc(file, &str) == -1)
+				return (str);
+		file->read_size--;
 	}
-	return (file->str);
 }
 
-int	ft_realloc(t_file *file)
+int	ft_realloc(t_file *file, char **str)
 {
 	char	*return_string;
 	size_t	i;
 
 	i = 0;
-	if (file->str_size <= 33554432)
-		file->str_size *= 2;
+	if (file->str_capacity <= 33554432)
+		file->str_capacity *= 2;
 	else
-		file->str_size += 33554432;
-	return_string = (char *)malloc(file->str_size);
+		file->str_capacity += 33554432;
+	return_string = (char *)malloc(file->str_capacity);
 	if (return_string == NULL)
 		return (-1);
-	while (file->str[i])
+	while (i < file->str_size)
 	{
-		return_string[i] = file->str[i];
+		return_string[i] = *(*str + i);
 		i++;
 	}
-	free(file->str);
-	file->str = return_string;
+	free(*str);
+	*str = return_string;
 	return (0);
 }
 
@@ -125,14 +126,14 @@ void	delete_file(t_file *file)
 	t_file	*prev_file;
 
 	del_file = file;
+	prev_file = file;
 	file = file->next;
-	while(file != file->next)
+	while(del_file != file->next)
 	{
 		prev_file = file;
 		file = file->next;
 	}
 	file = prev_file;
 	file->next = del_file->next;
-	free(del_file->str);
 	free(del_file);
 }

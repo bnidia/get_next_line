@@ -6,7 +6,7 @@
 /*   By: bnidia <bnidia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/01 12:45:12 by bnidia            #+#    #+#             */
-/*   Updated: 2021/12/30 09:14:48 by bnidia           ###   ########.fr       */
+/*   Updated: 2022/01/15 22:49:59 by bnidia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,19 +22,14 @@
 char	*get_next_line(int fd)
 {
 	static t_file	*file = NULL;
-	int 			err;
 
-	err = 0;
-	if (fd < 0 || BUFFER_SIZE <= 0)
+	if (read(fd, 0, 0) < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	if (file == NULL)
-		init_file(fd, &file);
-	if (file == NULL)
-		return (NULL);
+		if (init_file(fd, &file) == NULL)
+			return (NULL);
 	if (file->fd != fd)
-		err = check_if_the_file_was_opened(fd, &file);
-	if (err == -1)
-		return (NULL);
-	make_string(file);
-	return (file->str);
+		if (check_if_the_file_was_opened(fd, &file) == -1)
+			return (NULL);
+	return (make_string(file));
 }

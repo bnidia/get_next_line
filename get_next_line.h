@@ -13,8 +13,9 @@
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 3//16384
+#  define BUFFER_SIZE 1//16384
 # endif
+# define STR_CAPACITY 16//128
 # include <unistd.h>
 # include <stdlib.h>
 
@@ -24,17 +25,16 @@ typedef struct file
 	char		read_buffer[BUFFER_SIZE];
 	ssize_t		read_size;
 	size_t		buffer_position;
-	char		*str;
 	size_t		str_capacity;
 	size_t		str_size;
 	struct file	*next;
 }	t_file;
 
 char	*get_next_line(int fd);
-void	init_file(int fd, t_file **file);
+t_file	*init_file(int fd, t_file **file);
 int		check_if_the_file_was_opened(int fd, t_file **file);
 char	*make_string(t_file *file);
-int		ft_realloc(t_file *file);
+int		ft_realloc(t_file *file, char **str);
 void	delete_file(t_file *file);
 
 #endif
