@@ -79,8 +79,10 @@ char	*make_string(t_file *file)
 			file->read_size = read(file->fd, file->read_buffer,
 								   BUFFER_SIZE);
 			if (file->read_size <= 0) {
-				if (file->str_size == 0)
+				if (file->str_size == 0) {
+					free(str);
 					return (NULL);
+				}
 				delete_file(file);
 				return (str);
 			}
