@@ -98,7 +98,7 @@ char	*ft_realloc(t_file *file, char **str)
 
 	i = -1;
 	if (file->str_size == 0)
-		file->str_capacity = 128;
+		file->str_capacity = 1024;//128;
 	else if (file->str_capacity <= 33554432)
 		file->str_capacity *= 2;
 	else
