@@ -70,15 +70,15 @@ void	make_string(t_file *file)
 				return ;
 			file->rb_pos = 0;
 		}
-		if (file->str_len == 0 || file->str_len + 8 >= file->str_capacity)
+		if (file->s_size == 0 || file->s_size + 8 >= file->s_capacity)
 			ft_realloc(file);
 		if (file->str == NULL)
 			return ;
-		file->str[file->str_len++] = file->rb_ar[file->rb_pos++];
+		file->str[file->s_size++] = file->rb_ar[file->rb_pos++];
 		file->rb_size--;
 		if (file->rb_ar[file->rb_pos - 1] == '\n')
 		{
-			file->str[file->str_len] = '\0';
+			file->str[file->s_size] = '\0';
 			return ;
 		}
 	}
@@ -90,14 +90,14 @@ void	ft_realloc(t_file *file)
 	size_t	i;
 
 	i = 0;
-	if (file->str_len == 0)
-		file->str_capacity = 128;
-	else if (file->str_capacity <= 33554432)
-		file->str_capacity *= 2;
+	if (file->s_size == 0)
+		file->s_capacity = 128;
+	else if (file->s_capacity <= 33554432)
+		file->s_capacity *= 2;
 	else
-		file->str_capacity += 33554432;
-	return_string = (char *)malloc(file->str_capacity);
-	while (i < file->str_len && return_string != NULL)
+		file->s_capacity += 33554432;
+	return_string = (char *)malloc(file->s_capacity);
+	while (i < file->s_size && return_string != NULL)
 	{
 		return_string[i] = file->str[i];
 		i++;

@@ -29,10 +29,10 @@ char	*get_next_line(int fd)
 		file = init_file(fd, &file);
 	if (file == NULL)
 		return (NULL);
-	file->str_len = 0;
+	file->s_size = 0;
 	file->str = NULL;
 	make_string(file);
-	if (file->rb_size == -1 && file->str_len > 0)
+	if (file->rb_size == -1 && file->s_size > 0)
 	{
 		free(file->str);
 		file->str = NULL;
@@ -42,7 +42,7 @@ char	*get_next_line(int fd)
 		delete_file(&file);
 		return (NULL);
 	}
-	if (file->str_len > 0)
-		file->str[file->str_len] = '\0';
+	if (file->s_size > 0)
+		file->str[file->s_size] = '\0';
 	return (file->str);
 }
