@@ -1,14 +1,6 @@
-/gnlTester-Tripouille/
-/cmake-build-debug/
-/gnlTester/
-/.vscode/
-/.idea/
-main.c
 *.a
 *.d
 *.o
 *.sh
-*.txt
-*.pdf
 *.out
 *.DS_Store

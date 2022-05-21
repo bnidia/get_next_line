@@ -18,7 +18,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 
-typedef struct file
+typedef struct s_file
 {
 	int			fd;
 	char		rb_ar[BUFFER_SIZE];
@@ -28,7 +28,7 @@ typedef struct file
 	size_t		s_capacity;
 	size_t		s_size;
 	struct file	*next;
-}	t_file;
+}				t_file;
 
 char	*get_next_line(int fd);
 t_file	*init_file(int fd, t_file **file);

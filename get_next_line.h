@@ -25,8 +25,8 @@ typedef struct file
 	char		*str;
 	ssize_t		rb_size;
 	size_t		rb_pos;
-	size_t		s_capacity;
-	size_t		s_size;
+	size_t		str_capacity;
+	size_t		str_len;
 	struct file	*next;
 }	t_file;
 
