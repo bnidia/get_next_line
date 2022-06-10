@@ -1,4 +1,4 @@
-# get_next_line
+# get_next_line (Complexity 70 hours)
 <img align="right" src="https://badge42.vercel.app/api/v2/cl3enoo9k004009muhk5a94tj/project/2398395" alt="bnidia's 42 get_next_line Score" />
 
 ### May it be a file, stdin, or even later a network connection, you will always need a way to read content line by line. It is time to start working on this function, which will be essential for your future projects.
